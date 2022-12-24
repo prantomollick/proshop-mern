@@ -12,6 +12,7 @@ import App from './App';
 
 import ProductScreen from './screens/ProductScreen';
 import HomeScreen from './screens/HomeScreen';
+import CartScreen from './screens/CartScreen';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <ProductScreen />,
+      },
+      {
+        path: '/cart/:id?',
+        element: <CartScreen />,
       },
     ],
   },
