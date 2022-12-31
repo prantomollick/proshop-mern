@@ -16,6 +16,7 @@ import CartScreen from './screens/CartScreen';
 import reportWebVitals from './reportWebVitals';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginScreen />,
+      },
+      {
+        path: '/profile',
+        element: <ProfileScreen />,
       },
       {
         path: '/register',
