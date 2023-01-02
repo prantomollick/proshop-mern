@@ -43,6 +43,7 @@ const PlaceOrderScreen = () => {
         paymentMethod: cart.paymentMethod,
         items: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       })
     );
