@@ -11,7 +11,7 @@ import { getOrderDetails, payOrder } from '../actions/orderActions';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 const OrderScreen = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { orderId } = useParams();
   const dispatch = useDispatch();
   const [sdkReady, setSdkReady] = useState(false);
@@ -44,7 +44,7 @@ const OrderScreen = () => {
       document.body.appendChild(script);
     };
 
-    if (!order || order._id !== orderId || successPay) {
+    if (!order || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
