@@ -8,11 +8,14 @@ import {
   FormGroup,
   FormLabel,
   FormControl,
+  Table,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { listMyOrders } from '../actions/orderActions';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const ProfileScreen = () => {
   const [name, setName] = useState('');
@@ -24,14 +27,18 @@ const ProfileScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
+  const userDetails = useSelector(state => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const userUpdateProfile = useSelector(state => state.userUpdateProfile);
   const { success } = userUpdateProfile;
+
+  const orderListMy = useSelector(state => state.orderListMy);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
+  console.log(orderListMy);
 
   useEffect(() => {
     if (!userInfo) {
@@ -39,6 +46,7 @@ const ProfileScreen = () => {
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'));
+        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -46,7 +54,7 @@ const ProfileScreen = () => {
     }
   }, [userInfo, navigate, dispatch, user]);
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage('Password do not match');
@@ -70,7 +78,7 @@ const ProfileScreen = () => {
               type="text"
               placeholder="Enter name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
             ></FormControl>
           </FormGroup>
 
@@ -80,7 +88,7 @@ const ProfileScreen = () => {
               type="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             ></FormControl>
           </FormGroup>
 
@@ -90,7 +98,7 @@ const ProfileScreen = () => {
               type="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             ></FormControl>
           </FormGroup>
 
@@ -100,7 +108,7 @@ const ProfileScreen = () => {
               type="password"
               placeholder="Confirm password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={e => setConfirmPassword(e.target.value)}
             ></FormControl>
           </FormGroup>
 
@@ -111,6 +119,55 @@ const ProfileScreen = () => {
       </Col>
       <Col md={9}>
         <h2>My orders</h2>
+        {loadingOrders ? (
+          <Loader />
+        ) : errorOrders ? (
+          <Message variant="danger">{errorOrders}</Message>
+        ) : (
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {console.log(orders)}
+              {orders.map(order => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt.substring(0, 10)
+                    ) : (
+                      <i className="fas fa-times" style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isDelivered ? (
+                      order.isDeliveredAt.substring(0, 10)
+                    ) : (
+                      <i className="fas fa-times" style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button variant="light" className="btn-sm">
+                        Details
+                      </Button>
+                    </LinkContainer>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Col>
     </Row>
   );
