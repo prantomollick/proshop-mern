@@ -21,6 +21,7 @@ import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import UserListScreen from './screens/UserListScreen';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: '/cart/:id?',
         element: <CartScreen />,
+      },
+      {
+        path: '/admin/userlist',
+        element: <UserListScreen />,
       },
     ],
   },
