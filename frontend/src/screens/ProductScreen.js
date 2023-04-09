@@ -22,7 +22,7 @@ const ProductScreen = () => {
   const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
+  const productDetails = useSelector(state => state.productDetails);
   const { loading, error, product } = productDetails;
 
   let { id } = useParams();
@@ -97,11 +97,11 @@ const ProductScreen = () => {
                         <Form.Select
                           as="select"
                           value={qty}
-                          onChange={(e) => {
+                          onChange={e => {
                             setQty(e.target.value);
                           }}
                         >
-                          {[...Array(product.countInStock).keys()].map((x) => (
+                          {[...Array(product.countInStock).keys()].map(x => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
                             </option>

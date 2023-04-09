@@ -15,7 +15,8 @@ import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 
 const CartScreen = () => {
-  const { productId } = useParams();
+  const { id: productId } = useParams();
+
   const location = useLocation();
   const navigate = useNavigate();
 
