@@ -73,7 +73,7 @@ const ProfileScreen = () => {
         {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={submitHandler}>
           <FormGroup className="mb-3" controlId="name">
-            <FormLabel>Name Address</FormLabel>
+            <FormLabel>Name</FormLabel>
             <FormControl
               type="text"
               placeholder="Enter name"
