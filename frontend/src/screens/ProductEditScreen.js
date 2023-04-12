@@ -133,7 +133,7 @@ const ProductEditScreen = () => {
               ></FormControl>
             </FormGroup>
 
-            {/* <FormGroup controlId="image">
+            <FormGroup controlId="image" className="mb-3">
               <FormLabel>Image</FormLabel>
               <FormControl
                 type="text"
@@ -141,14 +141,13 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={e => setImage(e.target.value)}
               ></FormControl>
-              <Form.File
-                id="image-file"
+              <FormControl
+                type="file"
                 label="Choose File"
-                custom
                 onChange={uploadFileHandler}
-              ></Form.File>
+              ></FormControl>
               {uploading && <Loader />}
-            </FormGroup> */}
+            </FormGroup>
 
             <FormGroup controlId="brand" className="mb-3">
               <FormLabel>Brand</FormLabel>
