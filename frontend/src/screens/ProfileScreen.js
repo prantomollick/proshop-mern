@@ -38,7 +38,6 @@ const ProfileScreen = () => {
 
   const orderListMy = useSelector(state => state.orderListMy);
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
-  console.log(orderListMy);
 
   useEffect(() => {
     if (!userInfo) {
@@ -136,7 +135,6 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {console.log(orders)}
               {!orders
                 ? []
                 : orders.map(order => (
@@ -156,7 +154,7 @@ const ProfileScreen = () => {
                       </td>
                       <td>
                         {order.isDelivered ? (
-                          order.isDeliveredAt.substring(0, 10)
+                          order.isDeliveredAt?.substring(0, 10)
                         ) : (
                           <i
                             className="fas fa-times"
