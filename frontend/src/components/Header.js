@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Form } from 'react-router-dom';
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Button,
+  FormControl,
+} from 'react-bootstrap';
 
-import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { logout } from '../actions/userActions';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [keyword, setKeyword] = useState('');
+
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
     dispatch(logout());
     navigate('/login');
+  };
+
+  const submitHandler = e => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/search/${keyword}`);
+    } else {
+      navigate('/');
+    }
   };
 
   return (
@@ -26,6 +44,18 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <Form className="d-flex" onSubmit={submitHandler}>
+              <FormControl
+                type="search"
+                onChange={e => setKeyword(e.target.value)}
+                placeholder="Search Products..."
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button type="submit" variant="outline-success">
+                Search
+              </Button>
+            </Form>
             <Nav className="ms-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>

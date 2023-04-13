@@ -33,6 +33,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: '/search/:keyword',
+        element: <HomeScreen />,
+      },
+      {
         path: '/',
         element: <HomeScreen />,
       },
