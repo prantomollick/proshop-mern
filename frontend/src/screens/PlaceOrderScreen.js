@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckoutStep from '../components/CheckoutStep';
 import { createOrder } from '../actions/orderActions';
+import { CART_ITEM_RESET } from '../constants/cartConstants';
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -32,8 +33,9 @@ const PlaceOrderScreen = () => {
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
+      dispatch({ type: CART_ITEM_RESET });
     }
-  }, [navigate, success, order]);
+  }, [navigate, success, order, dispatch]);
 
   const placeOrderHandler = () => {
     dispatch(
